@@ -17,6 +17,8 @@ steps:
     organization: 'victoredu22'
     projectKey: 'victoredu22_microservicio-spring'
     projectName: 'microservicio-spring'
+  displayName: "SonarCloud Prepare"
+
   
 - task: Gradle@3
   inputs:
