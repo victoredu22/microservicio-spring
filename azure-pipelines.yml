@@ -4,52 +4,30 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
 trigger:
-  - feature-ms-victorCurilao-mensaje
+- feature-ms-victorCurilao-mensaje
 
 pool:
   vmImage: ubuntu-latest
 
 steps:
-  - script: |
+- script: |
       git fetch --unshallow
-    displayName: "convert to non-shallow clone"
+  displayName: 'convert to non-shallow clone' 
 
-  - task: Gradle@3
-    inputs:
-      gradleWrapperFile: "gradlew"
-      tasks: "build"
-      publishJUnitResults: true
-      javaHomeOption: "JDKVersion"
-      sonarQubeRunAnalysis: false
-      spotBugsAnalysis: false
-    displayName: Build
-  - task: SonarCloudPrepare@1
-    inputs:
-      SonarCloud: "sonarcloud"
-      organization: "victoredu22"
-      scannerMode: "Other"
-      projectKey: "victoredu22_microservicio-spring"
-      projectName: :'microservicio-spring'
-    displayName: "SonarCloud Prepare"
-
-  - task: Gradle@3
-    displayName: "Run test"
-    inputs:
-      gradleWrapperFile: "gradlew"
-      workingDirectory: "$(Build.SourcesDirectory)"
-      publishJUnitResults: true
-      testResultsFiles: "*/TEST-.xml"
-      javaHomeOption: "JDKVersion"
-      sonarQubeRunAnalysis: false
-      spotBugsAnalysis: false
-
-  - task: Gradle@3
-    inputs:
-      gradleWrapperFile: "gradlew"
-      tasks: "sonar"
-      publishJUnitResults: false
-      javaHomeOption: "JDKVersion"
-      sonarQubeRunAnalysis: true
-      sqGradlePluginVersionChoice: "specify"
-      sonarQubeGradlePluginVersion: "3.5.0.2730"
-      spotBugsAnalysis: false
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'sonarcloud'
+    organization: 'victoredu22'
+    projectKey: 'victoredu22_microservicio-spring'
+    projectName: 'microservicio-spring'
+  
+- task: Gradle@3
+  inputs:
+    gradleWrapperFile: 'gradlew'
+    tasks: 'sonar'
+    publishJUnitResults: false
+    javaHomeOption: 'JDKVersion'
+    sonarQubeRunAnalysis: true
+    sqGradlePluginVersionChoice: 'specify'
+    sonarQubeGradlePluginVersion: '3.3'
+    spotBugsAnalysis: false
