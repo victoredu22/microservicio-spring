@@ -7,21 +7,45 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-  
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'sonarcloud'
-    organization: 'victoredu22'
-    projectKey: 'victoredu22_microservicio-spring'
-    projectName: 'microservicio-spring'
-  displayName: "SonarCloud Prepare"
-- task: Gradle@3
-  inputs:
-    gradleWrapperFile: 'gradlew'
-    tasks: 'sonarqube'
-    publishJUnitResults: false
-    javaHomeOption: 'JDKVersion'
-    sonarQubeRunAnalysis: true
-    sqGradlePluginVersionChoice: 'specify'
-    sonarQubeGradlePluginVersion: '3.3'
-    spotBugsAnalysis: false
+  - script: |
+      git fetch --unshallow
+    displayName: "convert to non-shallow clone"
+
+  - task: Gradle@3
+    inputs:
+      gradleWrapperFile: "gradlew"
+      tasks: "build"
+      publishJUnitResults: true
+      javaHomeOption: "JDKVersion"
+      sonarQubeRunAnalysis: false
+      spotBugsAnalysis: false
+    displayName: Build
+
+  - task: SonarCloudPrepare@1
+    inputs:
+      SonarCloud: 'sonarcloud'
+      organization: 'victoredu22'
+      projectKey: 'victoredu22_microservicio-spring'
+      projectName: 'microservicio-spring'
+    displayName: "SonarCloud Prepare"
+
+  - task: Gradle@3
+    displayName: "Run test"
+    inputs:
+      gradleWrapperFile: "gradlew"
+      workingDirectory: "$(Build.SourcesDirectory)"
+      publishJUnitResults: true
+      testResultsFiles: "*/TEST-.xml"
+      javaHomeOption: "JDKVersion"
+      sonarQubeRunAnalysis: false
+      spotBugsAnalysis: false
+  - task: Gradle@3
+    inputs:
+      gradleWrapperFile: 'gradlew'
+      tasks: 'sonarqube'
+      publishJUnitResults: false
+      javaHomeOption: 'JDKVersion'
+      sonarQubeRunAnalysis: true
+      sqGradlePluginVersionChoice: 'specify'
+      sonarQubeGradlePluginVersion: '3.3'
+      spotBugsAnalysis: false
