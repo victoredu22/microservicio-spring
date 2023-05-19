@@ -7,9 +7,6 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: |
-      git fetch --unshallow
-  displayName: 'convert to non-shallow clone' 
   
 - task: SonarCloudPrepare@1
   inputs:
@@ -18,12 +15,10 @@ steps:
     projectKey: 'victoredu22_microservicio-spring'
     projectName: 'microservicio-spring'
   displayName: "SonarCloud Prepare"
-
-  
 - task: Gradle@3
   inputs:
     gradleWrapperFile: 'gradlew'
-    tasks: 'sonar'
+    tasks: 'sonarqube'
     publishJUnitResults: false
     javaHomeOption: 'JDKVersion'
     sonarQubeRunAnalysis: true
