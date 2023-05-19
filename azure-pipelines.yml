@@ -23,14 +23,14 @@ steps:
       sonarQubeRunAnalysis: false
       spotBugsAnalysis: false
     displayName: Build
+
   - task: SonarCloudPrepare@1
     inputs:
-      SonarCloud: "sonarcloud"
-      organization: "victoredu22"
-      scannerMode: "Other"
-      projectKey: "victoredu22_microservicio-spring"
-      projectName: :'microservicio-spring'
-    displayName: "SonarCloud Prepare"
+      SonarCloud: 'microservicio'
+      organization: 'victoredu22'
+      projectKey: 'victoredu22_microservicio-spring'
+      projectName: 'microservicio-spring'
+      scannerMode: 'Other'
 
   - task: Gradle@3
     displayName: "Run test"
