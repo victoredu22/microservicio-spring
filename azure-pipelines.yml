@@ -3,9 +3,6 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
-trigger:
-- feature-ms-victorCurilao-mensaje
-
 pool:
   vmImage: ubuntu-latest
 
@@ -13,7 +10,7 @@ steps:
 - script: |
       git fetch --unshallow
   displayName: 'convert to non-shallow clone' 
-
+  
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'sonarcloud'
