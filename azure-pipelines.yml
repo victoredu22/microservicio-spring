@@ -1,6 +1,3 @@
-trigger:
-- feature-ms-victorCurilao-mensaje
-
 pool:
   vmImage: ubuntu-latest
 
