@@ -53,3 +53,12 @@ steps:
       sqGradlePluginVersionChoice: "specify"
       sonarQubeGradlePluginVersion: "3.3"
       spotBugsAnalysis: false
+
+  - task: Maven@3
+    inputs:
+      mavenPomFile: "pom.xml"
+      publishJUnitResults: false
+      javaHomeOption: "JDKVersion"
+      jdkVersionOption: "1.11"
+      mavenVersionOption: "Default"
+      mavenOptions: "-Xmx3072m"
