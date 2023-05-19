@@ -1,28 +1,7 @@
-# Gradle
-# Build your Java project and run tests with Gradle using a Gradle wrapper script.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/java
-
-trigger:
-  - feature-ms-victorCurilao-mensaje
-
 pool:
   vmImage: ubuntu-latest
 
 steps:
-  - script: |
-      git fetch --unshallow
-    displayName: "convert to non-shallow clone"
-
-  - task: Gradle@3
-    inputs:
-      gradleWrapperFile: "gradlew"
-      tasks: "build"
-      publishJUnitResults: true
-      javaHomeOption: "JDKVersion"
-      sonarQubeRunAnalysis: false
-      spotBugsAnalysis: false
-    displayName: Build
 
   - task: SonarCloudPrepare@1
     inputs:
@@ -31,18 +10,7 @@ steps:
       projectKey: 'victoredu22_microservicio-spring'
       projectName: 'microservicio-spring'
       scannerMode: 'Other'
-
-  - task: Gradle@3
-    displayName: "Run test"
-    inputs:
-      gradleWrapperFile: "gradlew"
-      workingDirectory: "$(Build.SourcesDirectory)"
-      publishJUnitResults: true
-      testResultsFiles: "*/TEST-.xml"
-      javaHomeOption: "JDKVersion"
-      sonarQubeRunAnalysis: false
-      spotBugsAnalysis: false
-
+    
   - task: Gradle@3
     inputs:
       gradleWrapperFile: "gradlew"
