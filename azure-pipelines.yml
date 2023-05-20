@@ -30,6 +30,7 @@ steps:
       organization: 'victoredu22'
       projectKey: 'victoredu22_microservicio-spring'
       projectName: 'microservicio-spring'
+      extraProperties: 'sonar.exclusions=src/main/java/com/example/testingweb/GretingService.java'
     displayName: "SonarCloud Prepare"
 
   - task: Gradle@3
