@@ -51,3 +51,20 @@ steps:
       sqGradlePluginVersionChoice: 'specify'
       sonarQubeGradlePluginVersion: '3.3'
       spotBugsAnalysis: false
+  - task: Docker@2
+    inputs:
+      containerRegistry: 'Docker'
+      command: 'login'
+  
+  - task: Docker@2
+    inputs:
+      containerRegistry: 'Docker'
+      repository: 'victoredu22/microservicio-spring'
+      command: 'build'
+      Dockerfile: '**/Dockerfile'
+  
+  - task: Docker@2
+    inputs:
+      containerRegistry: 'Docker'
+      repository: 'victoredu22/microservicio-spring'
+      command: 'push'
