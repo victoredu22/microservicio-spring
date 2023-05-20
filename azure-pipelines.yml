@@ -54,18 +54,18 @@ steps:
       spotBugsAnalysis: false
   - task: Docker@2
     inputs:
-      containerRegistry: 'Docker'
+      containerRegistry: 'dockerVictor'
       command: 'login'
-  
+
   - task: Docker@2
     inputs:
-      containerRegistry: 'Docker'
+      containerRegistry: 'dockerVictor'
       repository: 'victorcuri/microservicio'
       command: 'build'
       Dockerfile: '**/Dockerfile'
-  
+
   - task: Docker@2
     inputs:
-      containerRegistry: 'Docker'
+      containerRegistry: 'dockerVictor'
       repository: 'victorcuri/microservicio'
       command: 'push'
