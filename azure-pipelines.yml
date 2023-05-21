@@ -24,25 +24,6 @@ steps:
       spotBugsAnalysis: false
     displayName: Build
 
-  - task: Gradle@3
-    displayName: "Run test"
-    inputs:
-      gradleWrapperFile: "gradlew"
-      publishJUnitResults: true
-      testResultsFiles: "*/TEST-.xml"
-      javaHomeOption: "JDKVersion"
-      sonarQubeRunAnalysis: false
-      spotBugsAnalysis: false
-    
-  - task: PublishCodeCoverageResults@1
-    inputs:
-        codeCoverageTool: 'JaCoCo'
-        summaryFileLocation: '$(System.DefaultWorkingDirectory)/build/reports/jacoco/test/jacocoTestReport.xml'
-        pathToSources: '$(System.DefaultWorkingDirectory)/src/main/java/'
-        reportDirectory: '$(System.DefaultWorkingDirectory)/build/reports/jacoco/test'
-        failIfCoverageEmpty: true
-    displayName: Publicacion de resultados de jacoco
-    
   - task: SonarCloudPrepare@1
     inputs:
       SonarCloud: "sonarcloud"
@@ -52,6 +33,16 @@ steps:
       extraProperties: "sonar.exclusions=src/main/java/com/example/testingweb/GretingService.java"
     displayName: "SonarCloud Prepare"
 
+  - task: Gradle@3
+    displayName: "Run test"
+    inputs:
+      gradleWrapperFile: "gradlew"
+      workingDirectory: "$(Build.SourcesDirectory)"
+      publishJUnitResults: true
+      testResultsFiles: "*/TEST-.xml"
+      javaHomeOption: "JDKVersion"
+      sonarQubeRunAnalysis: false
+      spotBugsAnalysis: false
   - task: Gradle@3
     inputs:
       gradleWrapperFile: "gradlew"
