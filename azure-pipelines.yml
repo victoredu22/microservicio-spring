@@ -26,10 +26,10 @@ steps:
 
   - task: SonarCloudPrepare@1
     inputs:
-      SonarCloud: 'sonarcloud'
-      organization: 'victoredu22'
-      projectKey: 'victoredu22_microservicio-spring'
-      projectName: 'microservicio-spring'
+      SonarCloud: "sonarcloud"
+      organization: "victoredu22"
+      projectKey: "victoredu22_microservicio-spring"
+      projectName: "microservicio-spring"
     displayName: "SonarCloud Prepare"
 
   - task: Gradle@3
@@ -44,28 +44,28 @@ steps:
       spotBugsAnalysis: false
   - task: Gradle@3
     inputs:
-      gradleWrapperFile: 'gradlew'
-      tasks: 'sonarqube'
+      gradleWrapperFile: "gradlew"
+      tasks: "sonarqube"
       publishJUnitResults: false
-      javaHomeOption: 'JDKVersion'
+      javaHomeOption: "JDKVersion"
       sonarQubeRunAnalysis: true
-      sqGradlePluginVersionChoice: 'specify'
-      sonarQubeGradlePluginVersion: '3.3'
+      sqGradlePluginVersionChoice: "specify"
+      sonarQubeGradlePluginVersion: "3.3"
       spotBugsAnalysis: false
   - task: Docker@2
     inputs:
-      containerRegistry: 'dockerVictor'
-      command: 'login'
+      containerRegistry: "dockerVictor"
+      command: "login"
 
   - task: Docker@2
     inputs:
-      containerRegistry: 'dockerVictor'
-      repository: 'victorcuri/microservicio'
-      command: 'build'
-      Dockerfile: '**/Dockerfile'
+      containerRegistry: "dockerVictor"
+      repository: "victorcuri/microservicio"
+      command: "build"
+      Dockerfile: "**/Dockerfile"
 
   - task: Docker@2
     inputs:
-      containerRegistry: 'dockerVictor'
-      repository: 'victorcuri/microservicio'
-      command: 'push'
+      containerRegistry: "dockerVictor"
+      repository: "victorcuri/microservicio"
+      command: "push"
