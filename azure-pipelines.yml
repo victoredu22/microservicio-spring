@@ -43,6 +43,7 @@ steps:
       javaHomeOption: "JDKVersion"
       sonarQubeRunAnalysis: false
       spotBugsAnalysis: false
+    
   - task: PublishCodeCoverageResults@1
     inputs:
         codeCoverageTool: 'JaCoCo'
