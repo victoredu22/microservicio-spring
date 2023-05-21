@@ -28,7 +28,6 @@ steps:
     displayName: "Run test"
     inputs:
       gradleWrapperFile: "gradlew"
-      workingDirectory: "$(Build.SourcesDirectory)"
       publishJUnitResults: true
       testResultsFiles: "*/TEST-.xml"
       javaHomeOption: "JDKVersion"
