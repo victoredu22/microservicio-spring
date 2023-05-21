@@ -24,15 +24,6 @@ steps:
       spotBugsAnalysis: false
     displayName: Build
 
-  - task: SonarCloudPrepare@1
-    inputs:
-      SonarCloud: "sonarcloud"
-      organization: "victoredu22"
-      projectKey: "victoredu22_microservicio-spring"
-      projectName: "microservicio-spring"
-      extraProperties: "sonar.exclusions=src/main/java/com/example/testingweb/GretingService.java"
-    displayName: "SonarCloud Prepare"
-
   - task: Gradle@3
     displayName: "Run test"
     inputs:
@@ -52,7 +43,16 @@ steps:
         reportDirectory: '$(System.DefaultWorkingDirectory)/build/reports/jacoco/test'
         failIfCoverageEmpty: true
     displayName: Publicacion de resultados de jacoco
-  
+    
+  - task: SonarCloudPrepare@1
+    inputs:
+      SonarCloud: "sonarcloud"
+      organization: "victoredu22"
+      projectKey: "victoredu22_microservicio-spring"
+      projectName: "microservicio-spring"
+      extraProperties: "sonar.exclusions=src/main/java/com/example/testingweb/GretingService.java"
+    displayName: "SonarCloud Prepare"
+
   - task: Gradle@3
     inputs:
       gradleWrapperFile: "gradlew"
